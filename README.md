@@ -24,8 +24,8 @@ Este proyecto es una aplicación web y API REST para la gestión de entrevistas,
 
 2. **Instala dependencias:**
    ```bash
-   composer install
-   npm install
+   ./vendor/bin/sail composer install
+   ./vendor/bin/sail npm install
    ```
 
 3. **Copia y configura el archivo de entorno:**
@@ -36,24 +36,22 @@ Este proyecto es una aplicación web y API REST para la gestión de entrevistas,
 
 4. **Genera la clave de la app:**
    ```bash
-   php artisan key:generate
+   ./vendor/bin/sail artisan key:generate
    ```
 
 5. **Ejecuta migraciones y seeders:**
    ```bash
-   php artisan migrate --seed
+   ./vendor/bin/sail artisan migrate --seed
    ```
 
 6. **Inicia el servidor de desarrollo:**
    ```bash
-   php artisan serve
-   # o usando Sail
    ./vendor/bin/sail up
    ```
 
 7. **Compila los assets:**
    ```bash
-   npm run dev
+   ./vendor/bin/sail npm run dev
    ```
 
 ---
@@ -107,6 +105,6 @@ routes/
 
 ## 📝 Créditos y licencia
 
-Desarrollado por [Tu Nombre o Equipo].
+Desarrollado por Isai San Miguel powered by cursor.
 
 Licencia MIT.
