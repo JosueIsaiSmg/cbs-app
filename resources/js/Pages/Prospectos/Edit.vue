@@ -22,6 +22,10 @@ const submit = () => {
 <template>
     <AppLayout>
         <div class="max-w-md mx-auto mt-10 bg-white shadow rounded p-6">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-gray-900">Editar Prospecto</h1>
+                <p class="text-gray-600 mt-1">Modifica los datos del prospecto</p>
+            </div>
             <form @submit.prevent="submit" class="space-y-4">
                 <div>
                     <label for="nombre" class="block text-gray-700 font-semibold mb-1">Nombre</label>

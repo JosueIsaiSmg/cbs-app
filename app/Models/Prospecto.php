@@ -12,4 +12,9 @@ class Prospecto extends Model
     protected $fillable = [
         'nombre', 'correo', 'fecha_registro',
     ];
+
+    public function entrevistas()
+    {
+        return $this->hasMany(Entrevista::class, 'prospecto');
+    }
 }

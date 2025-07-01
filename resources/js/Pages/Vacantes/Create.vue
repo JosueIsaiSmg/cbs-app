@@ -20,6 +20,10 @@ const submit = () => {
 <template>
     <AppLayout>
         <div class="max-w-md mx-auto mt-10 bg-white shadow rounded p-6">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-gray-900">Crear Vacante</h1>
+                <p class="text-gray-600 mt-1">Crea una nueva vacante</p>
+            </div>
             <form @submit.prevent="submit" class="space-y-4">
                 <div>
                     <label for="area" class="block text-gray-700 font-semibold mb-1">Area</label>
@@ -47,14 +51,14 @@ const submit = () => {
                     </div>
                 </div>
 
-                <div>
-                    <label for="activo" class="block text-gray-700 font-semibold mb-1">Activo</label>
+                <div class="flex items-center space-x-2">
                     <input
                         id="activo"
                         v-model="form.activo"
                         type="checkbox"
-                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
+                        class="border rounded focus:outline-none focus:ring focus:border-blue-400"
                     />
+                    <label for="activo" class="text-gray-700">Activo</label>
                     <div v-if="errors.activo" class="text-red-600 text-sm mt-1">
                         {{ errors.activo }}
                     </div>

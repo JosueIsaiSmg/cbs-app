@@ -26,8 +26,23 @@ alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 - `EntrevistaValidationTest.php` - Tests de validación de formularios
 - `EntrevistaAuthenticationTest.php` - Tests de autenticación
 
+### Tests de API
+- `Api/EntrevistaApiTest.php` - Tests para el controlador API de entrevistas
+- `Api/VacanteApiTest.php` - Tests para el controlador API de vacantes
+- `Api/ProspectoApiTest.php` - Tests para el controlador API de prospectos
+- `Api/AuthApiTest.php` - Tests para el controlador de autenticación API
+
 ### Tests Unitarios
 - `EntrevistaTest.php` - Tests unitarios para el modelo Entrevista
+- `EntrevistaServiceTest.php` - Tests unitarios para el servicio de entrevistas
+- `VacanteServiceTest.php` - Tests unitarios para el servicio de vacantes
+- `ProspectoServiceTest.php` - Tests unitarios para el servicio de prospectos
+
+### Tests de Integración
+- `Integration/EntrevistaIntegrationTest.php` - Tests de integración entre servicios y controladores
+
+### Tests de Rendimiento
+- `Performance/ServicePerformanceTest.php` - Tests de rendimiento para grandes volúmenes de datos
 
 ## 🚀 Cómo ejecutar los tests
 
@@ -206,6 +221,150 @@ $response->assertInertia(fn (Assert $page) => $page
 5. **Agrupar tests relacionados** en la misma clase
 6. **Verificar tanto casos exitosos como de error**
 7. **Usar Sail consistentemente** para evitar problemas de entorno
+
+## 🔌 Tests de API
+
+### Ejecutar tests de API
+```bash
+# Todos los tests de API
+sail artisan test tests/Feature/Api/
+
+# Test específico de API
+sail artisan test tests/Feature/Api/EntrevistaApiTest.php
+
+# Con filtro
+sail artisan test --filter=EntrevistaApiTest
+```
+
+### Estructura de tests de API
+```php
+/** @test */
+public function it_can_create_an_interview_via_api()
+{
+    $data = [
+        'vacante_id' => $this->vacante->id,
+        'prospecto_id' => $this->prospecto->id,
+        'fecha' => '2024-01-15',
+        'hora' => '14:30',
+        'tipo' => 'presencial',
+        'estado' => 'programada'
+    ];
+
+    $response = $this->postJson('/api/entrevistas', $data);
+
+    $response->assertStatus(201)
+            ->assertJson([
+                'message' => 'Entrevista creada exitosamente'
+            ]);
+}
+```
+
+### Autenticación en tests de API
+```php
+// Usar Sanctum para autenticación
+Sanctum::actingAs($user);
+
+// O crear token manualmente
+$token = $user->createToken('test-token')->plainTextToken;
+$response = $this->withHeaders([
+    'Authorization' => 'Bearer ' . $token,
+])->getJson('/api/entrevistas');
+```
+
+## 🏗️ Tests de Servicios
+
+### Ejecutar tests de servicios
+```bash
+# Todos los tests de servicios
+sail artisan test tests/Unit/*ServiceTest.php
+
+# Test específico
+sail artisan test tests/Unit/EntrevistaServiceTest.php
+```
+
+### Estructura de tests de servicios
+```php
+/** @test */
+public function it_can_create_an_interview_via_service()
+{
+    $data = [
+        'vacante_id' => $this->vacante->id,
+        'prospecto_id' => $this->prospecto->id,
+        'fecha' => '2024-01-15',
+        'hora' => '14:30',
+        'tipo' => 'presencial',
+        'estado' => 'programada'
+    ];
+
+    $entrevista = $this->entrevistaService->create($data);
+
+    $this->assertInstanceOf(Entrevista::class, $entrevista);
+    $this->assertEquals($data['fecha'], $entrevista->fecha);
+}
+```
+
+### Tests de validación en servicios
+```php
+/** @test */
+public function it_validates_required_fields()
+{
+    $this->expectException(ValidationException::class);
+    $this->entrevistaService->create([]);
+}
+```
+
+## 🔗 Tests de Integración
+
+### Ejecutar tests de integración
+```bash
+# Tests de integración
+sail artisan test tests/Feature/Integration/
+
+# Test específico
+sail artisan test tests/Feature/Integration/EntrevistaIntegrationTest.php
+```
+
+### Propósito de tests de integración
+- Verificar interacción entre servicios y controladores
+- Probar flujos completos de la aplicación
+- Validar consistencia de datos entre capas
+- Detectar problemas de integración
+
+## ⚡ Tests de Rendimiento
+
+### Ejecutar tests de rendimiento
+```bash
+# Tests de rendimiento
+sail artisan test tests/Performance/
+
+# Con información de tiempo
+sail artisan test tests/Performance/ServicePerformanceTest.php --verbose
+```
+
+### Propósito de tests de rendimiento
+- Verificar comportamiento con grandes volúmenes de datos
+- Medir tiempos de respuesta
+- Detectar problemas de memoria
+- Validar escalabilidad de la aplicación
+
+### Ejemplo de test de rendimiento
+```php
+/** @test */
+public function it_handles_large_number_of_interviews_efficiently()
+{
+    $startTime = microtime(true);
+    
+    // Crear 1000 entrevistas
+    for ($i = 0; $i < 1000; $i++) {
+        $this->entrevistaService->create($data);
+    }
+    
+    $creationTime = microtime(true) - $startTime;
+    
+    // Verificar que el tiempo es razonable
+    $this->assertLessThan(5.0, $creationTime, 'Creación demasiado lenta');
+}
+```
 
 ## 🔍 Debugging Tests
 

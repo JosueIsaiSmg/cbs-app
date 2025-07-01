@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Prospecto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,9 +18,9 @@ class ProspectoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => $this->faker->name(),
-            'correo' => $this->faker->unique()->safeEmail(),
-            'fecha_registro' => $this->faker->date(),
+            'nombre' => fake()->name(),
+            'correo' => fake()->unique()->safeEmail(),
+            'fecha_registro' => fake()->date(),
         ];
     }
 }

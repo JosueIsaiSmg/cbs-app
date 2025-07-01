@@ -25,6 +25,11 @@ const submit = () => {
 <template>
     <AppLayout>
         <div class="max-w-md mx-auto mt-10 bg-white shadow rounded p-6">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-gray-900">Crear Entrevista</h1>
+                <p class="text-gray-600 mt-1">Crea una nueva entrevista</p>
+            </div>
+
             <!-- Mensaje de error general -->
             <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                 {{ error }}

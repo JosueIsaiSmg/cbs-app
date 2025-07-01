@@ -4,6 +4,22 @@ Este proyecto es una aplicación web y API REST para la gestión de entrevistas,
 
 ---
 
+flowchart TD
+    A["Usuario (Navegador)"] -- Llenar formulario y enviar --> B["Vue.js (Inertia Form)"]
+    B -- POST /entrevistas --> C["Laravel (Controlador Entrevista)"]
+    C -- Validación y lógica --> D["Servicio Entrevista"]
+    D -- Guardar datos --> E["Base de datos MySQL"]
+    E -- Confirmación --> D
+    D -- Respuesta (éxito/error) --> C
+    C -- Redirección/Respuesta Inertia --> B
+    B -- Mostrar mensaje/actualizar UI --> A
+
+    subgraph Docker/Sail
+        C
+        D
+        E
+    end
+
 ## 🚀 Tecnologías principales
 - **Laravel** (backend, API REST, autenticación Sanctum)
 - **Inertia.js** (puente entre Laravel y Vue)
@@ -71,7 +87,7 @@ La API REST requiere autenticación con **Bearer Token** (Sanctum). Consulta la 
 
 ## 🧪 Tests
 
-Para ejecutar los tests:
+Para ejecutar los tests se necesita tener Docker instalado:
 ```bash
 # Con Sail
 ./vendor/bin/sail test

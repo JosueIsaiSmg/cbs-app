@@ -47,12 +47,9 @@ class VacanteService
         try {
             // Validar datos
             $validator = Validator::make($data, [
-                'titulo' => 'required|string|max:255',
-                'descripcion' => 'required|string|max:1000',
-                'salario' => 'nullable|numeric|min:0',
-                'ubicacion' => 'nullable|string|max:255',
-                'tipo_contrato' => 'nullable|string|max:100',
-                'estado' => 'required|in:activa,inactiva,cerrada'
+                'area' => 'required|string|max:255',
+                'sueldo' => 'required|numeric|min:0',
+                'activo' => 'required|boolean'
             ]);
 
             if ($validator->fails()) {
@@ -129,12 +126,9 @@ class VacanteService
 
             // Validar datos
             $validator = Validator::make($data, [
-                'titulo' => 'required|string|max:255',
-                'descripcion' => 'required|string|max:1000',
-                'salario' => 'nullable|numeric|min:0',
-                'ubicacion' => 'nullable|string|max:255',
-                'tipo_contrato' => 'nullable|string|max:100',
-                'estado' => 'required|in:activa,inactiva,cerrada'
+                'area' => 'required|string|max:255',
+                'sueldo' => 'required|numeric|min:0',
+                'activo' => 'required|boolean'
             ]);
 
             if ($validator->fails()) {
@@ -227,7 +221,7 @@ class VacanteService
     public function getVacantesActivas()
     {
         try {
-            $vacantes = Vacante::where('estado', 'activa')->get();
+            $vacantes = Vacante::where('activo', true)->get();
 
             return [
                 'success' => true,

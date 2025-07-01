@@ -52,7 +52,7 @@ class EntrevistaService
                 'vacante' => 'required|exists:vacantes,id',
                 'prospecto' => 'required|exists:prospectos,id',
                 'fecha_entrevista' => 'required|date',
-                'notas' => 'required|string|max:1000',
+                'notas' => 'nullable|string|max:1000',
                 'reclutado' => 'required|boolean'
             ]);
 
@@ -151,7 +151,7 @@ class EntrevistaService
                 'vacante' => 'required|exists:vacantes,id',
                 'prospecto' => 'required|exists:prospectos,id',
                 'fecha_entrevista' => 'required|date',
-                'notas' => 'required|string|max:1000',
+                'notas' => 'nullable|string|max:1000',
                 'reclutado' => 'required|boolean'
             ]);
 

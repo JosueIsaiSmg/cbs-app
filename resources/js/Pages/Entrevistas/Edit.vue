@@ -11,13 +11,13 @@ const props = defineProps({
 });
 
 const form = useForm({
-    vacante: props.entrevista.vacante,
-    prospecto: props.entrevista.prospecto,
+    vacante: props.entrevista.vacante.id,
+    prospecto: props.entrevista.prospecto.id,
     fecha_entrevista: props.entrevista.fecha_entrevista,
     notas: props.entrevista.notas,
     reclutado: props.entrevista.reclutado,
 });
-
+console.log(props.entrevista);
 const submit = () => {
     form.put(route('entrevistas.update', [props.entrevista.vacante, props.entrevista.prospecto]));
 };

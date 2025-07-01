@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Vacante;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,9 +18,9 @@ class VacanteFactory extends Factory
     public function definition(): array
     {
         return [
-            'area' => $this->faker->word(),
-            'sueldo' => $this->faker->numberBetween(1000, 10000),
-            'activo' => $this->faker->boolean(),
+            'area' => fake()->word(),
+            'sueldo' => fake()->numberBetween(1000, 10000),
+            'activo' => fake()->boolean(),
         ];
     }
 }

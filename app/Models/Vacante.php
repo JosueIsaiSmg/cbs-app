@@ -12,4 +12,9 @@ class Vacante extends Model
     protected $fillable = [
         'area', 'sueldo', 'activo',
     ];
+
+    public function entrevistas()
+    {
+        return $this->hasMany(Entrevista::class, 'vacante');
+    }
 }

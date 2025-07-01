@@ -47,8 +47,8 @@ class EntrevistaControllerTest extends TestCase
             ->has('entrevistas', 1)
             ->has('vacantes')
             ->has('prospectos')
-            ->where('entrevistas.0.vacante', $vacante->id)
-            ->where('entrevistas.0.prospecto', $prospecto->id)
+            ->where('entrevistas.0.vacante.id', $vacante->id)
+            ->where('entrevistas.0.prospecto.id', $prospecto->id)
         );
     }
 
@@ -115,7 +115,6 @@ class EntrevistaControllerTest extends TestCase
             'vacante',
             'prospecto',
             'fecha_entrevista',
-            'notas',
             'reclutado'
         ]);
     }
@@ -144,8 +143,8 @@ class EntrevistaControllerTest extends TestCase
             ->has('entrevista')
             ->has('vacantes')
             ->has('prospectos')
-            ->where('entrevista.vacante', $vacante->id)
-            ->where('entrevista.prospecto', $prospecto->id)
+            ->where('entrevista.vacante.id', $vacante->id)
+            ->where('entrevista.prospecto.id', $prospecto->id)
         );
     }
 

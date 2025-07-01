@@ -48,11 +48,8 @@ class ProspectoService
             // Validar datos
             $validator = Validator::make($data, [
                 'nombre' => 'required|string|max:255',
-                'email' => 'required|email|unique:prospectos,email',
-                'telefono' => 'nullable|string|max:20',
-                'cv' => 'nullable|string|max:1000',
-                'experiencia' => 'nullable|integer|min:0',
-                'estado' => 'required|in:activo,inactivo,contratado'
+                'correo' => 'required|email|unique:prospectos,correo',
+                'fecha_registro' => 'required|date'
             ]);
 
             if ($validator->fails()) {
@@ -130,11 +127,8 @@ class ProspectoService
             // Validar datos
             $validator = Validator::make($data, [
                 'nombre' => 'required|string|max:255',
-                'email' => 'required|email|unique:prospectos,email,' . $id,
-                'telefono' => 'nullable|string|max:20',
-                'cv' => 'nullable|string|max:1000',
-                'experiencia' => 'nullable|integer|min:0',
-                'estado' => 'required|in:activo,inactivo,contratado'
+                'correo' => 'required|email|unique:prospectos,correo,' . $id,
+                'fecha_registro' => 'required|date'
             ]);
 
             if ($validator->fails()) {
@@ -222,38 +216,13 @@ class ProspectoService
     }
 
     /**
-     * Obtener prospectos activos
-     */
-    public function getProspectosActivos()
-    {
-        try {
-            $prospectos = Prospecto::where('estado', 'activo')->get();
-
-            return [
-                'success' => true,
-                'data' => $prospectos,
-                'message' => 'Prospectos activos obtenidos exitosamente'
-            ];
-
-        } catch (\Exception $e) {
-            Log::error('Error al obtener prospectos activos: ' . $e->getMessage());
-
-            return [
-                'success' => false,
-                'message' => 'Error al obtener los prospectos activos',
-                'error' => $e->getMessage()
-            ];
-        }
-    }
-
-    /**
      * Buscar prospectos por nombre o email
      */
     public function searchProspectos($query)
     {
         try {
             $prospectos = Prospecto::where('nombre', 'like', "%{$query}%")
-                                  ->orWhere('email', 'like', "%{$query}%")
+                                  ->orWhere('correo', 'like', "%{$query}%")
                                   ->get();
 
             return [
