@@ -3,7 +3,7 @@
 Este proyecto es una aplicación web y API REST para la gestión de entrevistas, vacantes y prospectos, desarrollada con **Laravel**, **Inertia.js** y **Vue.js**.
 
 ---
-
+```mermaid
 flowchart TD
     A["Usuario (Navegador)"] -- Llenar formulario y enviar --> B["Vue.js (Inertia Form)"]
     B -- POST /entrevistas --> C["Laravel (Controlador Entrevista)"]
@@ -19,6 +19,7 @@ flowchart TD
         D
         E
     end
+```
 
 ## 🚀 Tecnologías principales
 - **Laravel** (backend, API REST, autenticación Sanctum)
